@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PersonalAssistant.Service\PersonalAssistant.Service.csproj" />
+    <ProjectReference Include="..\PersonalAssistant.Utilities\PersonalAssistant.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

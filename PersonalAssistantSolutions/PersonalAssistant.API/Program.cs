@@ -1,11 +1,23 @@
 using Microsoft.EntityFrameworkCore;
+using PersonalAssistant.Models.OptionModels;
+using PersonalAssistant.Service;
+using PersonalAssistant.Utilities;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("PADatabaseConnection");
-//builder.Services.AddDbContext<>(opt=> opt.UseSqlServer(connectionString));
+
+var configOption = new ConfigOption()
+{
+    ConnectionString = connectionString,
+};
+
+
+builder.Services.RegisterUtilityComponents(configOption);
+builder.Services.RegisterServiceComponents(configOption);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
