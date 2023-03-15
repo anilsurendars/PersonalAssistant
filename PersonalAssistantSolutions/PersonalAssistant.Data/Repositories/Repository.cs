@@ -1,160 +1,155 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PersonalAssistant.Data.Context;
-using PersonalAssistant.Data.Repositories.Interfaces;
+﻿namespace PersonalAssistant.Data.Repositories;
 
-namespace PersonalAssistant.Data.Repositories
+public class Repository<T> : IRepository<T> where T : class, new()
 {
-    public class Repository<T> : IRepository<T> where T : class, new()
+    protected readonly PersonalAssistantDatabaseContext _context;
+
+    public Repository(PersonalAssistantDatabaseContext context)
     {
-        protected readonly PersonalAssistantDatabaseContext _context;
+        _context = context;
+    }
 
-        public Repository(PersonalAssistantDatabaseContext context)
+    public void Add(T entity)
+    {
+        try
         {
-            _context = context;
+            _context.Set<T>().Add(entity);
         }
-
-        public void Add(T entity)
+        catch (Exception)
         {
-            try
-            {
-                _context.Set<T>().Add(entity);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public void AddRange(IEnumerable<T> entities)
+    public void AddRange(IEnumerable<T> entities)
+    {
+        try
         {
-            try
-            {
-                _context.Set<T>().AddRange(entities);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _context.Set<T>().AddRange(entities);
         }
-
-        public void Delete(T entity)
+        catch (Exception)
         {
-            try
-            {
-                _context.Set<T>().Remove(entity);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public void DeleteRange(IEnumerable<T> entities)
+    public void Delete(T entity)
+    {
+        try
         {
-            try
-            {
-                _context.Set<T>().RemoveRange(entities);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _context.Set<T>().Remove(entity);
         }
-
-        public async Task<T> Get(short id)
+        catch (Exception)
         {
-            try
-            {
-                return await _context.Set<T>().FindAsync(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<T> GetInt(int id)
+    public void DeleteRange(IEnumerable<T> entities)
+    {
+        try
         {
-            try
-            {
-                return await _context.Set<T>().FindAsync(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _context.Set<T>().RemoveRange(entities);
         }
-
-        public async Task<T> GetLong(long id)
+        catch (Exception)
         {
-            try
-            {
-                return await _context.Set<T>().FindAsync(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public async Task<T> GetString(string val)
+    public async Task<T> Get(short id)
+    {
+        try
         {
-            try
-            {
-                return await _context.Set<T>().FindAsync(val);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Set<T>().FindAsync(id);
         }
-
-        public async Task<IList<T>> GetAll()
+        catch (Exception)
         {
-            try
-            {
-                return await _context.Set<T>().ToListAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public IQueryable<T> GetAllAsQuarable()
+    public async Task<T> GetInt(int id)
+    {
+        try
         {
-            try
-            {
-                return _context.Set<T>().AsQueryable();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Set<T>().FindAsync(id);
         }
-
-        public void Update(T entity)
+        catch (Exception)
         {
-            try
-            {
-                _context.Set<T>().Update(entity);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            throw;
         }
+    }
 
-        public void UpdateRange(IEnumerable<T> entities)
+    public async Task<T> GetLong(long id)
+    {
+        try
         {
-            try
-            {
-                _context.Set<T>().UpdateRange(entities);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Set<T>().FindAsync(id);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<T> GetString(string val)
+    {
+        try
+        {
+            return await _context.Set<T>().FindAsync(val);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<IList<T>> GetAll()
+    {
+        try
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public IQueryable<T> GetAllAsQuarable()
+    {
+        try
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public void Update(T entity)
+    {
+        try
+        {
+            _context.Set<T>().Update(entity);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public void UpdateRange(IEnumerable<T> entities)
+    {
+        try
+        {
+            _context.Set<T>().UpdateRange(entities);
+        }
+        catch (Exception)
+        {
+            throw;
         }
     }
 }

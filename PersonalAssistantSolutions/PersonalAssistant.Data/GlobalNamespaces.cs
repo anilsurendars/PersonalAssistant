@@ -1,0 +1,10 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using PersonalAssistant.Data.Context;
+global using PersonalAssistant.Data.Repositories;
+global using PersonalAssistant.Data.Repositories.Interfaces;
+global using PersonalAssistant.Data.UnitOfWorks;
+global using PersonalAssistant.Data.UnitOfWorks.Interfaces;
+global using PersonalAssistant.Models.OptionModels;
+global using PersonalAssistant.Data.Entities;
+global using System.ComponentModel.DataAnnotations.Schema;
