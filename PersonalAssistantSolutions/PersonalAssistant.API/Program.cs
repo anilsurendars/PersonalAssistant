@@ -14,24 +14,11 @@ var configOption = new ConfigOption()
     ConnectionString = connectionString,
 };
 
-
-builder.Services.RegisterUtilityComponents(configOption);
-builder.Services.RegisterServiceComponents(configOption);
-
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+AddServices(builder, configOption);
 
 builder.Host.UseSerilog((context, logConfig) =>
 {
     logConfig.WriteTo.Console().ReadFrom.Configuration(context.Configuration);
-});
-
-builder.Services.AddCors(opt=>
-{
-    opt.AddPolicy("AllowAll", b=> b.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 });
 
 var app = builder.Build();
@@ -45,10 +32,28 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");  
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+static void AddServices(WebApplicationBuilder builder, ConfigOption configOption)
+{
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+    builder.Services.RegisterUtilityComponents(configOption);
+    builder.Services.RegisterServiceComponents(configOption);
+
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    builder.Services.AddCors(opt =>
+    {
+        opt.AddPolicy("AllowAll", b => b.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+    });
+}

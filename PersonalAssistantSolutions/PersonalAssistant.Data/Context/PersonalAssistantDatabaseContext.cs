@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PersonalAssistant.Data.Entities;
-
-namespace PersonalAssistant.Data.Context;
+﻿namespace PersonalAssistant.Data.Context;
 
 public partial class PersonalAssistantDatabaseContext : DbContext
 {
@@ -90,17 +87,17 @@ public partial class PersonalAssistantDatabaseContext : DbContext
         {
             entity.ToTable("ContactType");
 
-            entity.Property(e => e.ContactType1)
+            entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("ContactType");
+                .HasColumnName("Name");
         });
 
         modelBuilder.Entity<IntervalType>(entity =>
         {
             entity.ToTable("IntervalType");
 
-            entity.Property(e => e.InteralType)
+            entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .IsUnicode(false);
         });
@@ -152,10 +149,10 @@ public partial class PersonalAssistantDatabaseContext : DbContext
         {
             entity.ToTable("InvestmentType");
 
-            entity.Property(e => e.InvestmentType1)
+            entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("InvestmentType");
+                .HasColumnName("Name");
         });
 
         modelBuilder.Entity<UserAction>(entity =>

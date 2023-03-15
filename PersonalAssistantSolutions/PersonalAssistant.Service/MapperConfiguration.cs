@@ -1,0 +1,21 @@
+﻿namespace PersonalAssistant.Service;
+
+public class MapperConfiguration : Profile
+{
+    public MapperConfiguration()
+    {
+        CreateMap<Contact, ContactModel>().ReverseMap();
+        CreateMap<Contact, ContactAudit>().ReverseMap();
+        CreateMap<ContactModel, ContactAudit>().ReverseMap();
+        CreateMap<ContactType, ContactTypeModel>().ReverseMap();
+
+        CreateMap<IntervalType, IntervalTypeModel>().ReverseMap();
+        CreateMap<Investment, InvestmentModel>().ReverseMap();
+        CreateMap<Investment, InvestmentAudit>().ReverseMap();
+        CreateMap<InvestmentModel, InvestmentAudit>().ReverseMap();
+        CreateMap<IntervalType, IntervalTypeModel>().ReverseMap();
+        CreateMap<Website, WebsiteModel>().ReverseMap();
+        CreateMap<Website, WebsiteAudit>().ReverseMap();
+        CreateMap<WebsiteModel, WebsiteAudit>().ReverseMap();
+    }
+}

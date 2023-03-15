@@ -1,7 +1,6 @@
-﻿namespace PersonalAssistant.Models.OptionModels
+﻿namespace PersonalAssistant.Models.OptionModels;
+
+public class ConfigOption
 {
-    public class ConfigOption
-    {
-        public string ConnectionString { get; set; }
-    }
+    public string ConnectionString { get; set; }
 }
