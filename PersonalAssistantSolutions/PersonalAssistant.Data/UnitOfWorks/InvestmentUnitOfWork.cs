@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using PersonalAssistant.Data.Context;
+using PersonalAssistant.Data.Entities;
+using PersonalAssistant.Data.Repositories.Interfaces;
 using PersonalAssistant.Data.UnitOfWorks.Interfaces;
 
 namespace PersonalAssistant.Data.UnitOfWorks
@@ -8,11 +10,33 @@ namespace PersonalAssistant.Data.UnitOfWorks
     {
         private IDbContextTransaction _transaction;
         private readonly PersonalAssistantDatabaseContext _context;
+        private readonly IRepository<Website> _websiteRepo;
+        private readonly IRepository<WebsiteAudit> _websiteAuditRepo;
+        private readonly IRepository<Investment> _investmentRepo;
+        private readonly IRepository<InvestmentAudit> _investmentAuditRepo;
+        private readonly IRepository<IntervalType> _intervalTypeRepo;
+        private readonly IRepository<InvestmentType> _investmentTypeRepo;
 
-        public InvestmentUnitOfWork(PersonalAssistantDatabaseContext context)
+        public InvestmentUnitOfWork(PersonalAssistantDatabaseContext context, IRepository<Website> websiteRepo, 
+            IRepository<WebsiteAudit> websiteAuditRepo, IRepository<Investment> investmentRepo, 
+            IRepository<InvestmentAudit> investmentAuditRepo, IRepository<IntervalType> intervalTypeRepo, 
+            IRepository<InvestmentType> investmentTypeRepo)
         {
             _context = context;
+            _websiteRepo = websiteRepo;
+            _websiteAuditRepo = websiteAuditRepo;
+            _investmentRepo = investmentRepo;
+            _investmentAuditRepo = investmentAuditRepo;
+            _intervalTypeRepo = intervalTypeRepo;
+            _investmentTypeRepo = investmentTypeRepo;
         }
+
+        public IRepository<Website> WebsiteRepo => _websiteRepo;
+        public IRepository<Investment> InvestmentRepo => _investmentRepo;
+        public IRepository<InvestmentType> InvestmentTypeRepo => _investmentTypeRepo;
+        public IRepository<IntervalType> IntervalTypeRepo => _intervalTypeRepo;
+        public IRepository<WebsiteAudit> WebsiteAuditRepo => _websiteAuditRepo;
+        public IRepository<InvestmentAudit> InvestmentAudit => _investmentAuditRepo;
 
         public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {

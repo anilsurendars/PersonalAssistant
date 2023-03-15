@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PersonalAssistant.Data.Entities;
+﻿namespace PersonalAssistant.Data.Entities;
 
 public partial class ContactAudit
 {

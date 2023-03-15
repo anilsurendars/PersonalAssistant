@@ -27,7 +27,6 @@ namespace PersonalAssistant.Data
         private static void RegisterUnitOfWorks(this IServiceCollection services)
         {
             services.AddScoped<IContactUnitOfWork, ContactUnitOfWork>();
-            services.AddScoped<IWebsiteUnitOfWork, WebsiteUnitOfWork>();
             services.AddScoped<IInvestmentUnitOfWork, InvestmentUnitOfWork>();
         }
     }
