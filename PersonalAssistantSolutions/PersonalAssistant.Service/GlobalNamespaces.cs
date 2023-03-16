@@ -6,3 +6,6 @@ global using PersonalAssistant.Service.Interfaces;
 global using PersonalAssistant.Service.Services;
 global using PersonalAssistant.Data.Entities;
 global using PersonalAssistant.Models.PresentationModels;
+global using Microsoft.Extensions.Logging;
+global using PersonalAssistant.Data.UnitOfWorks.Interfaces;
+global using Newtonsoft.Json;

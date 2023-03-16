@@ -1,13 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PersonalAssistant.Models.OptionModels;
+﻿namespace PersonalAssistant.Utilities;
 
-namespace PersonalAssistant.Utilities
+public static class ServiceConfiguration
 {
-    public static class ServiceConfiguration
+    public static void RegisterUtilityComponents(this IServiceCollection serviceCollection, ConfigOption configOption)
     {
-        public static void RegisterUtilityComponents(this IServiceCollection serviceCollection, ConfigOption configOption)
-        {
-
-        }
+        serviceCollection.AddSingleton<IClock, Clock>();
     }
 }

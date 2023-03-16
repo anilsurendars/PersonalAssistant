@@ -1,25 +1,26 @@
 ﻿namespace PersonalAssistant.Data.UnitOfWorks;
 
-public class ContactUnitOfWork : IContactUnitOfWork
+public class LookupUnitOfWork : ILookupUnitOfWork
 {
     private IDbContextTransaction _transaction;
     private readonly PersonalAssistantDatabaseContext _context;
-    private readonly IRepository<Contact> _contactRepo;
-    private readonly IRepository<ContactType> _contactTypeRepo;
-    private readonly IRepository<ContactAudit> _contactAuditRepo;
 
-    public ContactUnitOfWork(PersonalAssistantDatabaseContext context, IRepository<Contact> contactRepo,
-        IRepository<ContactType> contactTypeRepo, IRepository<ContactAudit> contactAuditRepo)
+    private readonly IRepository<IntervalType> _intervalTypeRepo;
+    private readonly IRepository<InvestmentType> _investmentTypeRepo;
+    private readonly IRepository<ContactType> _contactTypeRepo;
+
+    public LookupUnitOfWork(IRepository<IntervalType> intervalTypeRepo, IRepository<InvestmentType> investmentTypeRepo, 
+        IRepository<ContactType> contactTypeRepo, PersonalAssistantDatabaseContext context)
     {
-        _context = context;
-        _contactRepo = contactRepo;
+        _intervalTypeRepo = intervalTypeRepo;
+        _investmentTypeRepo = investmentTypeRepo;
         _contactTypeRepo = contactTypeRepo;
-        _contactAuditRepo = contactAuditRepo;
+        _context = context;
     }
 
-    public IRepository<Contact> ContactRepo => _contactRepo;
-    public IRepository<ContactAudit> ContactAuditRepo => _contactAuditRepo;
     public IRepository<ContactType> ContactTypeRepo => _contactTypeRepo;
+    public IRepository<InvestmentType> InvestmentTypeRepo => _investmentTypeRepo;
+    public IRepository<IntervalType> IntervalTypeRepo => _intervalTypeRepo;
 
     public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
     {

@@ -57,7 +57,7 @@ public class Repository<T> : IRepository<T> where T : class, new()
         }
     }
 
-    public async Task<T> Get(short id)
+    public async Task<T> Get(int id)
     {
         try
         {
@@ -69,7 +69,7 @@ public class Repository<T> : IRepository<T> where T : class, new()
         }
     }
 
-    public async Task<T> GetInt(int id)
+    public async Task<T> GetShort(short id)
     {
         try
         {
