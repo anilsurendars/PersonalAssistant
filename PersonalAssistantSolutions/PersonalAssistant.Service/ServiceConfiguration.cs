@@ -11,5 +11,7 @@ public static class ServiceConfiguration
     {
         services.AddScoped<IInvestmentService, InvestmentService>();
         services.AddScoped<IContactService, ContactService>();
+        services.AddScoped<ILookupService, LookupService>();
+        services.AddScoped<IContactService, ContactService>();
     }
 }

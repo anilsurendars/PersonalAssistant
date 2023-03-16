@@ -2,9 +2,9 @@
 
 public interface IRepository<T> where T : class, new()
 {
-    Task<T> Get(short id);
+    Task<T> Get(int id);
     Task<T> GetLong(long id);
-    Task<T> GetInt(int id);
+    Task<T> GetShort(short id);
     Task<T> GetString(string val);
     Task<IList<T>> GetAll();
     IQueryable<T> GetAllAsQuarable();
