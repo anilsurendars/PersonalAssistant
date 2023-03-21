@@ -17,7 +17,7 @@ public class LookupService : ILookupService
     {
         try
         {
-            var entities = await _unitOfWork.ContactTypeRepo.GetAll();
+            var entities = await _unitOfWork.ContactTypeRepo.GetAllAsync();
 
             return _mapper.Map<IList<ContactTypeModel>>(entities);
         }
@@ -31,7 +31,7 @@ public class LookupService : ILookupService
     {
         try
         {
-            var entities = await _unitOfWork.IntervalTypeRepo.GetAll();
+            var entities = await _unitOfWork.IntervalTypeRepo.GetAllAsync();
 
             return _mapper.Map<IList<IntervalTypeModel>>(entities);
         }
@@ -45,7 +45,7 @@ public class LookupService : ILookupService
     {
         try
         {
-            var entities = await _unitOfWork.InvestmentTypeRepo.GetAll();
+            var entities = await _unitOfWork.InvestmentTypeRepo.GetAllAsync();
 
             return _mapper.Map<IList<InvestmentTypeModel>>(entities);
         }

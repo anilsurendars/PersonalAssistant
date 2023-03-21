@@ -9,7 +9,7 @@ public class LookupUnitOfWork : ILookupUnitOfWork
     private readonly IRepository<InvestmentType> _investmentTypeRepo;
     private readonly IRepository<ContactType> _contactTypeRepo;
 
-    public LookupUnitOfWork(IRepository<IntervalType> intervalTypeRepo, IRepository<InvestmentType> investmentTypeRepo, 
+    public LookupUnitOfWork(IRepository<IntervalType> intervalTypeRepo, IRepository<InvestmentType> investmentTypeRepo,
         IRepository<ContactType> contactTypeRepo, PersonalAssistantDatabaseContext context)
     {
         _intervalTypeRepo = intervalTypeRepo;
@@ -24,78 +24,36 @@ public class LookupUnitOfWork : ILookupUnitOfWork
 
     public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
     }
 
     public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _transaction?.CommitAsync(cancellationToken);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        await _transaction?.CommitAsync(cancellationToken);
     }
 
     public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _transaction?.RollbackAsync(cancellationToken);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        await _transaction?.RollbackAsync(cancellationToken);
     }
 
     public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            return await _context.SaveChangesAsync();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return await _context.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        try
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
     protected virtual void Dispose(bool disposing)
     {
-        try
+        if (disposing)
         {
-            if (disposing)
-            {
-                _context?.Dispose();
-                _transaction?.Dispose();
-            }
-        }
-        catch (Exception)
-        {
-            throw;
+            _context?.Dispose();
+            _transaction?.Dispose();
         }
     }
 }

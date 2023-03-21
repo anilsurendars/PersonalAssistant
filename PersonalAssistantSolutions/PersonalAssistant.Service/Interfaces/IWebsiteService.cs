@@ -3,10 +3,10 @@
 public  interface IWebsiteService
 {
     Task<WebsiteModel> Create(WebsiteModel websiteModel);
-    Task<WebsiteModel> Update(WebsiteModel websiteModel, int websiteId);
-    Task<bool> Delete(int websiteId);
+    Task<bool> Update(WebsiteModel websiteModel, int websiteId);
+    Task<bool> Delete(int websiteId, int userId);
 
     Task<WebsiteModel> GetWebsite(int websiteId);
-    Task<IList<WebsiteModel>> GetAll();
+    Task<IList<WebsiteModel>> GetWebsites();
 
 }

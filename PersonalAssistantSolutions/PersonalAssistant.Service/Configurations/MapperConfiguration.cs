@@ -1,4 +1,4 @@
-﻿namespace PersonalAssistant.Service;
+﻿namespace PersonalAssistant.Service.Configurations;
 
 public class MapperConfiguration : Profile
 {

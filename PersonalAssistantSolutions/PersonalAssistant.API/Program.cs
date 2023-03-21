@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using PersonalAssistant.API.Configurations;
 using PersonalAssistant.Models.OptionModels;
-using PersonalAssistant.Service;
-using PersonalAssistant.Utilities;
+using PersonalAssistant.Service.Configurations;
+using PersonalAssistant.Utilities.Configurations;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +38,8 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
 

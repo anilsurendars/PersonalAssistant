@@ -8,7 +8,7 @@ public interface IInvestmentUnitOfWork : IDisposable
 
     Task<int> SaveAsync(CancellationToken cancellationToken = default);
 
-    IRepository<Website> WebsiteRepo { get; }
+    IWebsiteRepository WebsiteRepo { get; }
     IRepository<Investment> InvestmentRepo { get; }
     IRepository<InvestmentType> InvestmentTypeRepo { get; }
     IRepository<IntervalType> IntervalTypeRepo { get; }

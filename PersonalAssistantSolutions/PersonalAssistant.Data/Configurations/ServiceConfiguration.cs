@@ -1,11 +1,11 @@
-﻿namespace PersonalAssistant.Data;
+﻿namespace PersonalAssistant.Data.Configurations;
 
 public static class ServiceConfiguration
 {
     public static void RegisterDataComponents(this IServiceCollection serviceCollection, ConfigOption configOption)
     {
         serviceCollection.AddDbContext<PersonalAssistantDatabaseContext>(options => options.UseSqlServer(configOption.ConnectionString));
-        
+
         serviceCollection.RegisterRepositories();
         serviceCollection.RegisterUnitOfWorks();
     }
@@ -13,6 +13,7 @@ public static class ServiceConfiguration
     private static void RegisterRepositories(this IServiceCollection services)
     {
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IWebsiteRepository, WebsiteRepository>();
     }
 
     private static void RegisterUnitOfWorks(this IServiceCollection services)

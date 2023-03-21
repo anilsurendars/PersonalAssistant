@@ -4,16 +4,16 @@ public class InvestmentUnitOfWork : IInvestmentUnitOfWork
 {
     private IDbContextTransaction _transaction;
     private readonly PersonalAssistantDatabaseContext _context;
-    private readonly IRepository<Website> _websiteRepo;
+    private readonly IWebsiteRepository _websiteRepo;
     private readonly IRepository<WebsiteAudit> _websiteAuditRepo;
     private readonly IRepository<Investment> _investmentRepo;
     private readonly IRepository<InvestmentAudit> _investmentAuditRepo;
     private readonly IRepository<IntervalType> _intervalTypeRepo;
     private readonly IRepository<InvestmentType> _investmentTypeRepo;
 
-    public InvestmentUnitOfWork(PersonalAssistantDatabaseContext context, IRepository<Website> websiteRepo, 
-        IRepository<WebsiteAudit> websiteAuditRepo, IRepository<Investment> investmentRepo, 
-        IRepository<InvestmentAudit> investmentAuditRepo, IRepository<IntervalType> intervalTypeRepo, 
+    public InvestmentUnitOfWork(PersonalAssistantDatabaseContext context, IWebsiteRepository websiteRepo,
+        IRepository<WebsiteAudit> websiteAuditRepo, IRepository<Investment> investmentRepo,
+        IRepository<InvestmentAudit> investmentAuditRepo, IRepository<IntervalType> intervalTypeRepo,
         IRepository<InvestmentType> investmentTypeRepo)
     {
         _context = context;
@@ -25,7 +25,7 @@ public class InvestmentUnitOfWork : IInvestmentUnitOfWork
         _investmentTypeRepo = investmentTypeRepo;
     }
 
-    public IRepository<Website> WebsiteRepo => _websiteRepo;
+    public IWebsiteRepository WebsiteRepo => _websiteRepo;
     public IRepository<Investment> InvestmentRepo => _investmentRepo;
     public IRepository<InvestmentType> InvestmentTypeRepo => _investmentTypeRepo;
     public IRepository<IntervalType> IntervalTypeRepo => _intervalTypeRepo;
@@ -34,78 +34,36 @@ public class InvestmentUnitOfWork : IInvestmentUnitOfWork
 
     public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
     }
 
     public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _transaction?.CommitAsync(cancellationToken);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        await _transaction?.CommitAsync(cancellationToken);
     }
 
     public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _transaction?.RollbackAsync(cancellationToken);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        await _transaction?.RollbackAsync(cancellationToken);
     }
 
     public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            return await _context.SaveChangesAsync();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return await _context.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        try
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
     protected virtual void Dispose(bool disposing)
     {
-        try
+        if (disposing)
         {
-            if (disposing)
-            {
-                _context?.Dispose();
-                _transaction?.Dispose();
-            }
-        }
-        catch (Exception)
-        {
-            throw;
+            _context?.Dispose();
+            _transaction?.Dispose();
         }
     }
 }

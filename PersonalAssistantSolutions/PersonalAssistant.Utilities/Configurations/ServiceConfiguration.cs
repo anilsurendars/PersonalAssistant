@@ -1,4 +1,4 @@
-﻿namespace PersonalAssistant.Utilities;
+﻿namespace PersonalAssistant.Utilities.Configurations;
 
 public static class ServiceConfiguration
 {

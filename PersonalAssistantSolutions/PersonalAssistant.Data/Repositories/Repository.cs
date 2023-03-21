@@ -9,147 +9,48 @@ public class Repository<T> : IRepository<T> where T : class, new()
         _context = context;
     }
 
-    public void Add(T entity)
+    public async Task AddAsync(T entity)
     {
-        try
-        {
-            _context.Set<T>().Add(entity);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        await _context.Set<T>().AddAsync(entity);
     }
 
-    public void AddRange(IEnumerable<T> entities)
+    public async Task AddRangeAsync(IEnumerable<T> entities)
     {
-        try
-        {
-            _context.Set<T>().AddRange(entities);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        await _context.Set<T>().AddRangeAsync(entities);
     }
 
     public void Delete(T entity)
     {
-        try
-        {
-            _context.Set<T>().Remove(entity);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        _context.Set<T>().Remove(entity);
     }
 
     public void DeleteRange(IEnumerable<T> entities)
     {
-        try
-        {
-            _context.Set<T>().RemoveRange(entities);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        _context.Set<T>().RemoveRange(entities);
     }
 
-    public async Task<T> Get(int id)
+    public async Task<T> GetByIdAsync(int id)
     {
-        try
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return await _context.Set<T>().FindAsync(id);
     }
 
-    public async Task<T> GetShort(short id)
+    public async Task<IList<T>> GetAllAsync()
     {
-        try
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
-    public async Task<T> GetLong(long id)
-    {
-        try
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
-    public async Task<T> GetString(string val)
-    {
-        try
-        {
-            return await _context.Set<T>().FindAsync(val);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
-    public async Task<IList<T>> GetAll()
-    {
-        try
-        {
-            return await _context.Set<T>().ToListAsync();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return await _context.Set<T>().ToListAsync();
     }
 
     public IQueryable<T> GetAllAsQuarable()
     {
-        try
-        {
-            return _context.Set<T>().AsQueryable();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return _context.Set<T>().AsQueryable();
     }
 
     public void Update(T entity)
     {
-        try
-        {
-            _context.Set<T>().Update(entity);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        _context.Set<T>().Update(entity);
     }
 
     public void UpdateRange(IEnumerable<T> entities)
     {
-        try
-        {
-            _context.Set<T>().UpdateRange(entities);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        _context.Set<T>().UpdateRange(entities);
     }
 }
