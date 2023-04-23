@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalAssistant.API.Configurations;
+using PersonalAssistant.Models.Configurations;
 using PersonalAssistant.Models.OptionModels;
 using PersonalAssistant.Service.Configurations;
 using PersonalAssistant.Utilities.Configurations;
@@ -47,6 +48,7 @@ static void AddServices(WebApplicationBuilder builder, ConfigOption configOption
 {
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    builder.Services.RegisterModelComponents(configOption);
     builder.Services.RegisterUtilityComponents(configOption);
     builder.Services.RegisterServiceComponents(configOption);
 

@@ -1,6 +1,4 @@
-﻿using PersonalAssistant.Models.GenericModels;
-
-namespace PersonalAssistant.API.Controllers;
+﻿namespace PersonalAssistant.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -9,7 +9,7 @@ public class MapperConfiguration : Profile
         CreateMap<ContactModel, ContactAudit>().ReverseMap();
         CreateMap<ContactType, ContactTypeModel>().ReverseMap();
 
-        CreateMap<IntervalType, IntervalTypeModel>().ReverseMap();
+        CreateMap<InvestmentType, InvestmentTypeModel>().ReverseMap();
         CreateMap<Investment, InvestmentModel>().ReverseMap();
         CreateMap<Investment, InvestmentAudit>().ReverseMap();
         CreateMap<InvestmentModel, InvestmentAudit>().ReverseMap();

@@ -1,4 +1,7 @@
-﻿namespace PersonalAssistant.Service.Services;
+﻿using PersonalAssistant.Utilities.Enums;
+using PersonalAssistant.Utilities.Extensions;
+
+namespace PersonalAssistant.Service.Services;
 
 public class WebsiteService : IWebsiteService
 {
@@ -32,10 +35,13 @@ public class WebsiteService : IWebsiteService
             var entity = _mapper.Map<Website>(websiteModel);
             entity.IsActive = true;
 
+            var auditEntity = _mapper.Map<WebsiteAudit>(entity);
+            auditEntity.ActionId = UserActionType.Create.ToInt();
+
             await _unitOfWork.BeginTransactionAsync();
 
             await _unitOfWork.WebsiteRepo.AddAsync(entity);
-            await _unitOfWork.WebsiteAuditRepo.AddAsync(_mapper.Map<WebsiteAudit>(entity));
+            await _unitOfWork.WebsiteAuditRepo.AddAsync(auditEntity);
 
             var result = await _unitOfWork.SaveAsync();
 

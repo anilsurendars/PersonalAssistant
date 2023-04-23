@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PersonalAssistant.Data\PersonalAssistant.Data.csproj" />
     <ProjectReference Include="..\PersonalAssistant.Models\PersonalAssistant.Models.csproj" />
+    <ProjectReference Include="..\PersonalAssistant.Utilities\PersonalAssistant.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

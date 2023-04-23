@@ -1,6 +1,4 @@
-﻿using PersonalAssistant.Models.PresentationModels;
-using PersonalAssistant.Utilities.Helpers;
-
+﻿
 namespace PersonalAssistant.API.Controllers;
 
 [Route("api/[controller]")]
@@ -9,11 +7,13 @@ public class WebsiteController : ControllerBase
 {
     private readonly ILogger<WebsiteController> _logger;
     private readonly IWebsiteService _service;
+    private readonly IValidator<WebsiteModel> _validator;
 
-    public WebsiteController(ILogger<WebsiteController> logger, IWebsiteService service)
+    public WebsiteController(ILogger<WebsiteController> logger, IWebsiteService service, IValidator<WebsiteModel> validator)
     {
         _logger = logger;
         _service = service;
+        _validator = validator;
     }
 
     [HttpGet]
@@ -50,6 +50,13 @@ public class WebsiteController : ControllerBase
     public async Task<IActionResult> PostWebsite(WebsiteModel model)
     {
         ArgumentNullException.ThrowIfNull(() => model, nameof(model));
+
+        var validationResult = await _validator.ValidateAsync(model);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(ResponseHelper.GetFailedResponse<WebsiteModel>(string.Join(",", validationResult.Errors)));
+        }
 
         var result = await _service.Create(model);
 
