@@ -1,6 +1,9 @@
-﻿namespace PersonalAssistant.Data.Context;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-public partial class PersonalAssistantDatabaseContext : DbContext
+namespace PersonalAssistant.Data.Context;
+
+public partial class PersonalAssistantDatabaseContext : IdentityDbContext<ApiUser>
 {
     public PersonalAssistantDatabaseContext()
     {
@@ -33,6 +36,8 @@ public partial class PersonalAssistantDatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Contact>(entity =>
         {
             entity.ToTable("Contact");
@@ -210,6 +215,59 @@ public partial class PersonalAssistantDatabaseContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_WebsiteAudit_Action");
         });
+
+        modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole()
+            {
+                Name = "User",
+                NormalizedName = "USER",
+                Id = "f55c973f-1c66-4439-a698-7c4cb5d5c816"
+            },
+            new IdentityRole()
+            {
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
+                Id = "06fdfe3b-86b9-475e-a5ba-96528429bbc2"
+            });
+
+        var hasher = new PasswordHasher<ApiUser>();
+
+        modelBuilder.Entity<ApiUser>().HasData(
+            new ApiUser()
+            {
+                Id = "b9d866a5-b316-448c-a07f-969dce564b10",
+                Email = "admin@pa.mail.com",
+                NormalizedEmail = "ADMIN@PA.MAIL.COM",
+                UserName = "admin@pa.mail.com",
+                NormalizedUserName = "ADMIN@PA.MAIL.COM",
+                FirstName = "System",
+                LastName = "Administrator",
+                PasswordHash = hasher.HashPassword(null, "P@ssword1")
+            },
+           new ApiUser()
+           {
+               Id = "c908badf-9b09-43dd-b814-a016623c75d8",
+               Email = "user@pa.mail.com",
+               NormalizedEmail = "USER@PA.MAIL.COM",
+               UserName = "user@pa.mail.com",
+               NormalizedUserName = "USER@PA.MAIL.COM",
+               FirstName = "System",
+               LastName = "User",
+               PasswordHash = hasher.HashPassword(null, "P@ssword1")
+           });
+
+        modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = "f55c973f-1c66-4439-a698-7c4cb5d5c816",
+                    UserId = "c908badf-9b09-43dd-b814-a016623c75d8"
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = "06fdfe3b-86b9-475e-a5ba-96528429bbc2",
+                    UserId = "b9d866a5-b316-448c-a07f-969dce564b10"
+                }
+            );
 
         OnModelCreatingPartial(modelBuilder);
     }
