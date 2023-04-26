@@ -8,3 +8,4 @@ global using PersonalAssistant.Data.Repositories.Interfaces;
 global using PersonalAssistant.Data.UnitOfWorks;
 global using PersonalAssistant.Data.UnitOfWorks.Interfaces;
 global using PersonalAssistant.Models.OptionModels;
+global using Microsoft.AspNetCore.Identity;

@@ -17,5 +17,8 @@ public class MapperConfiguration : Profile
         CreateMap<Website, WebsiteModel>().ReverseMap();
         CreateMap<Website, WebsiteAudit>().ReverseMap();
         CreateMap<WebsiteModel, WebsiteAudit>().ReverseMap();
+
+        CreateMap<ApiUser, UserModel>().ReverseMap();
+        CreateMap<ApiUser, LoginModel>().ReverseMap();
     }
 }

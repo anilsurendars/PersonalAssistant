@@ -27,5 +27,6 @@ public static class ServiceConfiguration
         services.AddScoped<IContactUnitOfWork, ContactUnitOfWork>();
         services.AddScoped<IInvestmentUnitOfWork, InvestmentUnitOfWork>();
         services.AddScoped<ILookupUnitOfWork, LookupUnitOfWork>();
+        services.AddScoped<IAuthUnitOfWork, AuthUnitOfWork>();
     }
 }

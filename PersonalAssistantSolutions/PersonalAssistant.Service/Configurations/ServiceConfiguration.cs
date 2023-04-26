@@ -17,5 +17,6 @@ public static class ServiceConfiguration
         services.AddScoped<ILookupService, LookupService>();
         services.AddScoped<IContactService, ContactService>();
         services.AddScoped<IWebsiteService, WebsiteService>();
+        services.AddScoped<IAuthService, AuthService>();
     }
 }
